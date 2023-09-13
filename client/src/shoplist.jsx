@@ -4,7 +4,7 @@ export const columns = [
     { Header: "Maximum Discount Rate", accessor: "maximum_discount_rate" },
     { Header: "Shop Name", accessor: "shop_name" },
     { Header: "Detail Button", accessor: "button" },
-    { Header: "Registered", accessor: "register" },
+    // { Header: "Registered", accessor: "register" },
 ];
   
 export const data = [
@@ -14,7 +14,7 @@ export const data = [
         maximum_discount_rate: "10",
         shop_name: "rakuten Supermarket",
         button: "Detail Button",
-        register: "Register"
+        // register: "Register"
     },
     {
         number: "2",
@@ -22,6 +22,6 @@ export const data = [
         maximum_discount_rate: "20",
         shop_name: "rakuten shop",
         button: "Detail Button",
-        register: "Register"
+        // register: "Register"
     },
 ];
