@@ -17,8 +17,6 @@ class Search(APIView):
 
         return Response(search_result_list)
 
-    
-
 class ListAllStore(APIView):
     def get(self, request):
         try:
@@ -29,6 +27,27 @@ class ListAllStore(APIView):
                     'name': s.name,
                 }
                 for s in stores
+            ]
+            return Response(res_list)
+        except:
+            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+class Detail_Shop(APIView):
+    def get(self, request, pk):
+        try:
+            try:
+                stores = Supermarket.objects.get(id=pk)
+            except:
+                error_msg = "そんなidのスーパーマーケットはないよ！"
+                return Response(error_msg, status=status.HTTP_404_NOT_FOUND)
+            res_list = [
+                {
+                'id': s.id,
+                'food_name': s.food_name,
+                'price_after_price': s.price_after_discount,
+                'discount_rate': s.discount_rate,
+                }
+                for s in stores.food_set.all()
             ]
             return Response(res_list)
         except:
