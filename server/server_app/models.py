@@ -1,12 +1,11 @@
 from django.db import models
-from decimal import Decimal
 
 class Food(models.Model):
     food_name = models.CharField(max_length=255)
     price_after_discount = models.DecimalField(max_digits=10, decimal_places=0)
     discount_rate = models.DecimalField(max_digits=5, decimal_places=2)
     supermarket = models.ForeignKey('Supermarket', on_delete=models.CASCADE)
-    last_updated = models.DateTimeField(auto_now=True)
+    last_updated = models.DateTimeField(help_text='登録日')
     
     def __str__(self):
         return self.food_name
