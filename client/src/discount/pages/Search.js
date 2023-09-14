@@ -15,7 +15,7 @@ const Search = () => {
 //   }, [query]);
 
   useEffect(() => {
-    fetch(`http://localhost:8000/api/search/`)
+    fetch(`http://127.0.0.1:8000/api/search/`)
       .then((response) => response.json())
       .then((data) => {
         setSearchResults(data);
@@ -29,7 +29,7 @@ const Search = () => {
     <div>
       <h1>Search Results for "{query}"</h1>
       <ul>
-        {searchResults.map((result) => (
+        {Object.values(searchResults).map((result) => (
           <li key={result.id}>{result.name}</li>
         ))}
       </ul>

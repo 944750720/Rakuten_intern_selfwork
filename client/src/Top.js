@@ -1,12 +1,14 @@
 //import React from 'react'
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+
+import { getSuperMarket } from './discount/api/getList'
 
 export const Top = () => {
-    let data = [
-        {id: 1, df: true, name: 'Taro', pv: Math.random()},
-        {id: 1, df: true, name: 'Taro', pv: Math.random()},
-    ];
+    // let data = [
+    //     {id: 1, df: true, name: 'Taro', pv: Math.random()},
+    //     {id: 1, df: true, name: 'Taro', pv: Math.random()},
+    // ];
 
     const navigate = useNavigate();
     const [searchTerm, setSearchTerm] = useState('');
@@ -16,9 +18,9 @@ export const Top = () => {
         const response = await fetch('/api/search', {
             method: 'POST',
             headers: {
-                'Content-Type': 'text/plain',
+                'Content-Type': 'application/json',
             },
-            body: searchTerm,  // 文字列として送信
+            body: JSON.stringify({ Search: searchTerm }), 
         });
         if (response.ok) {
             // 検索が成功した場合の処理（例：ページ遷移）
@@ -30,6 +32,26 @@ export const Top = () => {
             //console.error('Search failed');
         }
     };
+
+    const initialState = {
+        id: '',
+        name: '',
+        supermarket_id: '',   
+    }
+
+    const[superlist, setDaily] = useState(initialState);
+    // const[loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        getSuperMarket()
+        .then(d => {
+            setDaily(d)
+            // setLoading(false)
+        })
+        .catch(e => {
+            throw new Error(e)
+        })
+    },[])
 
 
     return(
@@ -46,14 +68,23 @@ export const Top = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {data.map((value) =>
+                        {Object.values(superlist).map((value) =>
+                            <tr>
+                                <th scope="row">{value.id}</th>
+                                <td>{{value} ? "🚩" : " "}</td>
+                                <td>{value.name}</td>
+                                <td><Link to={`detail/${value.supermarket_id}`}>Detail</ Link></td>
+                            </tr>
+                        )}
+            
+                        {/* {data.map((value) =>
                             <tr>
                                 <th scope="row">{value.id}</th>
                                 <td>{{value} ? "🚩" : " "}</td>
                                 <td>{value.name}</td>
                                 <td>{value.pv}</td>
                             </tr>
-                        )}
+                        )} */}
                     </tbody>
                 </table>
                 <h1>Nearby shops</h1>

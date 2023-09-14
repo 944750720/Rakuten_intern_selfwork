@@ -8,8 +8,8 @@ const toJson = async (res) => {
 }
 
 //日報一覧を取得
-export const getDaily = async () =>{
-    const res = await fetch('http://localhost:8000/daily/', {
+export const getSuperMarket = async () =>{
+    const res = await fetch('http://127.0.0.1:8000/api/supermarkets/', {
         method: 'GET',
     })
     return await toJson(res);

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { getDailyDetail } from '../api/getDaily';
+import { getDailyDetail } from '../api/getList';
 import { marked } from 'marked';
 import { CategoryList } from '../components/CategoryList'
 
