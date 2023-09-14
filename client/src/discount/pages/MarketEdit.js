@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { getSuperDetail } from '../api/getList';
 
 
-export const MarketDetail = () => {
+export const MarketEdit = () => {
     const initialState = {
         id: '',
         original_price: '',
@@ -34,18 +34,17 @@ export const MarketDetail = () => {
         <div>
             <center>
                 <h1>{id}</h1>
-                {/* <td><Link to={`/supermarket/${id}/edit`}><button>Detail</button></ Link></td> */}
                 {loading ?
                     <h1>Loading....</h1>
                     :
-                    <table className="table" border="1" width="300">
+                    <table className="List" border="1" width="300">
                             <thead className="table-dark">
                                 <tr>
                                     <th scope="col-2">Last Update</th>
                                     <th scope="col-2">Food Name</th>
                                     <th scope="col-4">Price (after discount)</th>
                                     <th scope="col-6">Discount Rate</th>
-                                    <th scope="col-6">Original Price</th>
+                                    <th scope="col-6">Original Price </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -75,5 +74,4 @@ export const MarketDetail = () => {
         </center>
         </div>
     )
-    
 }

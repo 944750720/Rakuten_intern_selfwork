@@ -1,10 +1,8 @@
-//import React from 'react'
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 
 import { getSuperMarket } from './discount/api/getList'
-// import { Wrapper, Status } from "@googlemaps/react-wrapper";
-
+import { Wrapper } from "@googlemaps/react-wrapper";
 import "./Top.css"
 
 
@@ -58,29 +56,47 @@ export const Top = () => {
         })
     },[])
 
+    const Map = () => {
+        const ref = React.useRef(null);
+        const [map, setMap] = React.useState(null);
+    
+        React.useEffect(() => {
+            if (ref.current && !map) {
+                setMap(new window.google.maps.Map(ref.current, {
+                    center: { lat: 26.5013, lng: 128.0593 },
+                    zoom: 9,
+                }));
+            }
+        }, [ref, map]);
+        
+    
+        return <div ref={ref} style={{ height: '500px', width: '100%' }} />;
+    };
+
     return(
         <div>
+            <Wrapper apiKey={process.env.REACT_APP_POSIPAN_API_KEY}>
+                <Map />
+            </Wrapper>
             <center>
-            <h1>Search</h1>
+            <h1>Refine Search</h1>
                 <input 
                     type="text" 
-                    placeholder="Search..." 
+                    placeholder="SuperMarket Search." 
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                 />
-                <button onClick={handleSearch}>Search</button>
-            
+                <button onClick={handleSearch}>Search</button>            
             
             <h1>Nearby shops</h1>
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3842.4866145559945!2d139.76521882883844!3d35.68294885275065!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188bfbd89f700b%3A0x277c49ba34ed38!2z5p2x5Lqs6aeF!5e0!3m2!1sja!2sjp!4v1694673250143!5m2!1sja!2sjp" 
-                title="Map"
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d207446.3291583094!2d139.57605851250543!3d35.66841030665742!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188b857628235d%3A0xcdd8aef709a2b520!2sTokyo!5e0!3m2!1sen!2sjp!4v1694676640160!5m2!1sen!2sjp" 
+                title="Maps"
                 width="600" 
                 height="450" 
-                style={{border:"0"}} 
-                allowfullscreen="" 
+                style={{border:"0"}}  
                 loading="lazy" 
-                referrerpolicy="no-referrer-when-downgrade"
-            ></iframe>
+                referrerPolicy="no-referrer-when-downgrade">
+            </iframe>
 
                 {loading ?
                         <h1>Loading....</h1>
@@ -100,7 +116,7 @@ export const Top = () => {
                                     <td>{value.Discount_Flag ? "🚩" : " "}</td>
                                     <th scope="row">{value.Supermarket_Name}</th>
                                     <td>{value.Maximum_Discount_Rate} %</td>
-                                    <td><Link to={`/supermarket/${value.Supermarket_ID}/foods`}>Detail</ Link></td>
+                                    <td><Link to={`/supermarket/${value.Supermarket_ID}/foods`}><button>Detail</button></ Link></td>
                                 </tr>
                             )}
                 
