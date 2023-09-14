@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 
-import { getSuperMarket } from '../api/getList'
+import { getSuperMarket, searchSuperMarket } from '../api/getList'
 
 export const Search = () => {
   const { query } = useParams();
@@ -27,60 +27,43 @@ useEffect(() => {
     })
 },[])
 
-//   useEffect(() => {
-//     // ここでAPIから検索結果を取得するなどの処理
-//     // 仮のデータをセット
-//     setSearchResults([
-//       { id: 1, name: 'Shop 1' },
-//       { id: 2, name: 'Shop 2' },
-//     ]);
-//   }, [query]);
-
-//   useEffect(() => {
-//     fetch(`http://127.0.0.1:8000/api/search/`)
-//       .then((response) => response.json())
-//       .then((data) => {
-//         setSearchResults(data);
-//         console.log("APIデータ:", data); 
-//       })
-//       .catch((error) => {
-//         console.error('Error fetching data:', error);
-//       });
-//   }, []);
-
-  useEffect(() => {
+useEffect(() => {
     const fetchData = async () => {
-        try {
-            const response = await fetch('http://127.0.0.1:8000/api/search/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ Search: query }),
-            });
-
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-
-            const data = await response.json();
-            setSearchResults(data);  // 結果をStateに保存
-        } catch (error) {
-            console.error('Fetching or parsing failed:', error);
-        }
+      try {
+        const data = await searchSuperMarket(query);
+        setSearchResults(data);  
+      } catch (error) {
+        console.error('Fetching or parsing failed:', error);
+      }
     };
-
     fetchData();
 }, [query]);  // queryが変更された場合に再実行
 
   return (
     <div>
-      {/* <h1>Search Results for "{query}"</h1>
-      <ul>
-        {Object.values(searchResults).map((result) => (
-          <li key={result.id}>{result.name}</li>
-        ))}
-      </ul> */}
+        <h1>Search Query: {query}</h1>
+      <h2>Search Results:</h2>
+      <table className="table" border="1" width="300">
+        <thead className="table-dark">
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Discount Flag</th>
+            <th scope="col">Supermarket Name</th>
+            <th scope="col">Maximum Discount Rate</th>
+          </tr>
+        </thead>
+        <tbody>
+          {searchResults.map((result) => (
+            <tr key={result.Supermarket_ID}>
+              <th scope="row">{result.Supermarket_ID}</th>
+              <td>{result.Discount_Flag ? "🚩" : " "}</td>
+              <td>{result.Supermarket_Name}</td>
+              <td>{result.Maximum_Discount_Rate}</td>
+            </tr>
+          ))}
+        </tbody>
+
+      </table>
        <h1>Search Query: {query}</h1> 
        <h2>Search Results:</h2>
         <ul>
@@ -107,14 +90,6 @@ useEffect(() => {
                             </tr>
                         )}
             
-                        {/* {data.map((value) =>
-                            <tr>
-                                <th scope="row">{value.id}</th>
-                                <td>{{value} ? "🚩" : " "}</td>
-                                <td>{value.name}</td>
-                                <td>{value.pv}</td>
-                            </tr>
-                        )} */}
                     </tbody>
                 </table>
     </div>
