@@ -75,8 +75,8 @@ export const Top = () => {
                         <thead className="table-dark">
                             <tr>
                                 <th scope="col-2">Discount Flag</th>
-                                <th scope="col-2">id</th>
-                                <th scope="col-4">Supermarket Name</th>
+                                <th scope="col-2">Supermarket Name</th>
+                                <th scope="col-4">Discount Flag</th>
                                 <th scope="col-6"></th>
                             </tr>
                         </thead>
@@ -85,8 +85,8 @@ export const Top = () => {
                                 <tr>
                                     <td>{value.Discount_Flag ? <center>🚩</center> : " "}</td>
                                     <th scope="row">{value.Supermarket_Name}</th>
-                                    <td><center>{value.Maximum_Discount_Rate}</center></td>
-                                    <td><Link to={`/supermarket/${value.supermarket_id}/foods`}>Detail</ Link></td>
+                                    <td><center>{value.Maximum_Discount_Rate} %</center></td>
+                                    <td><Link to={`/supermarket/${value.Supermarket_ID}/foods`}>Detail</ Link></td>
                                 </tr>
                             )}
                 

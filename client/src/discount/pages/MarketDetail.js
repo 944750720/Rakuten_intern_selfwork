@@ -8,11 +8,12 @@ import { getSuperDetail } from '../api/getList';
 export const MarketDetail = () => {
     const initialState = {
         id: '',
+        original_price: '',
         food_name: '',
         price_after_discount: '',
         discount_rate: '',
-        price_before_discount: '',
-        register_date: '',
+        last_updated: '',
+        supermarket: '',
     };
 
     const [detail, setDetail] = useState(initialState)
@@ -51,11 +52,11 @@ export const MarketDetail = () => {
                             <tbody>
                                 {Object.values(detail).map((value) =>
                                     <tr>
-                                        <td><center>{value.register_date}</center></td>
+                                        <td><center>{value.last_updated}</center></td>
                                         <th scope="row"><center>{value.food_name}</center></th>
                                         <td><center>¥{value.price_after_discount}</center></td>
                                         <td><center>{value.discount_rate} %</center></td>
-                                        <td><center>¥{value.price_before_discount}</center></td>
+                                        <td><center>¥{value.original_price}</center></td>
                                         
                                     </tr>
                                 )}
