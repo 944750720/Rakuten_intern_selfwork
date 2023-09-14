@@ -1,7 +1,7 @@
 import React, {useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
-import { getCategory } from '../api/getDaily'
+import { getCategory } from '../api/getList'
 import { DailyCategory } from '../components/DailyCategory'
 import { CategoryList } from '../components/CategoryList'
 

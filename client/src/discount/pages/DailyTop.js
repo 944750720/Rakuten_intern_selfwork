@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { getDaily } from '../api/getDaily'
+import { getSuperMarket } from '../api/getList'
 import { DailyContent } from '../components/DailyContent'
 import { CategoryList } from '../components/CategoryList'
 
@@ -14,8 +14,8 @@ export const DailyTop = () => {
     const[daily, setDaily] = useState(initialState);
     const[loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        getDaily()
+    useEffect(() => {v
+        getSuperMarket()
         .then(d => {
             setDaily(d)
             setLoading(false)
