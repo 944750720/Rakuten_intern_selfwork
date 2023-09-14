@@ -16,17 +16,17 @@ export const getSuperMarket = async () =>{
 }
 
 //1日の詳細を取得
-export const getDailyDetail = async (id) => {
-    const res = await fetch(`http://localhost:8000/daily/${id}`, {
+export const getSuperDetail = async (id) => {
+    const res = await fetch(`http://localhost:8000/api/${id}`, {
         method : 'GET',
     })
     return await toJson(res);
 }
 
 //カテゴリ別一覧を取得
-export const getCategory = async (cat) => {
-    const res = await fetch(`http://localhost:8000/daily/${cat}`, {
-        method: 'GET',
-    })
-    return await toJson(res)
-}
+// export const getCategory = async (cat) => {
+//     const res = await fetch(`http://localhost:8000/daily/${cat}`, {
+//         method: 'GET',
+//     })
+//     return await toJson(res)
+// }

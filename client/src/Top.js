@@ -57,23 +57,32 @@ export const Top = () => {
     return(
         <div>
             <center>
+            <h1>Search</h1>
+                <input 
+                    type="text" 
+                    placeholder="Search..." 
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                />
+                <button onClick={handleSearch}>Search</button>
+
             <h1>Nearby shops</h1>
                 <table className="table" border="1" width="300">
                     <thead className="table-dark">
                         <tr>
                             <th scope="col-2">id</th>
-                            <th scope="col-2">df</th>
-                            <th scope="col-4">name</th>
-                            <th scope="col-6">pv</th>
+                            <th scope="col-2">Discount Flag</th>
+                            <th scope="col-4">Supermarket Name</th>
+                            <th scope="col-6"></th>
                         </tr>
                     </thead>
                     <tbody>
                         {Object.values(superlist).map((value) =>
                             <tr>
                                 <th scope="row">{value.id}</th>
-                                <td>{{value} ? "🚩" : " "}</td>
-                                <td>{value.name}</td>
-                                <td><Link to={`detail/${value.supermarket_id}`}>Detail</ Link></td>
+                                <td>{value.id === 1 ? <center>🚩</center> : " "}</td>
+                                <td><center>{value.name}</center></td>
+                                <td><Link to={`/supermarket/${value.id}`}>Detail</ Link></td>
                             </tr>
                         )}
             
@@ -87,14 +96,6 @@ export const Top = () => {
                         )} */}
                     </tbody>
                 </table>
-                <h1>Nearby shops</h1>
-                <input 
-                    type="text" 
-                    placeholder="Search..." 
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                />
-                <button onClick={handleSearch}>Search</button>
             </center>
         </div>
     )
