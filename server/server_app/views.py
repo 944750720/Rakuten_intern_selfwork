@@ -30,6 +30,7 @@ class ListAllStore(APIView):
             # transform search result to json
             for store in stores:
                 discount_flag = False  # 初期値を False に設定
+                max_rate = 0 # 最大割引率の初期値を 0 に設定
 
                 # スーパーマーケットのすべての食品を取得
                 foods = store.food_set.all()
