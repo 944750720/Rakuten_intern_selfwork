@@ -5,7 +5,7 @@ import { marked } from 'marked';
 import { CategoryList } from '../components/CategoryList'
 
 
-export const DailyDetail = () => {
+export const MarketDetail = () => {
     const initialState = {
         date: '',
         univ: '',

@@ -2,9 +2,9 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { Header } from './Header';
 import { Top } from './Top';
-import { DailyTop } from './daily/pages/DailyTop';
-import { CategoryView } from './daily/pages/CategoryView';
-import { DailyDetail } from './daily/pages/DailyDetail';
+import { MarketDetail } from './discount/pages/MarketDetail';
+//import { Search } from './discount/pages/Search';
+import Search from './discount/pages/Search';
 
 import "./App.css"
 
@@ -14,9 +14,8 @@ export const App = () => {
       <Header />
       <Routes>
           <Route path="/" element={<Top />} />
-          <Route path='/daily' element={<DailyTop/>} />
-          <Route path='/daily/:id' element={<DailyDetail />} />
-          <Route path='/daily/category/:cat' element={<CategoryView/>}/>
+          <Route path='/search/:query' element={<Search />} />
+          <Route path='/search/super/:id' element={<MarketDetail />} />
           <Route render={() => <h4>not found...</h4>} />
       </Routes>
     </div>
