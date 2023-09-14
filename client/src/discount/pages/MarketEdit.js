@@ -44,7 +44,7 @@ export const MarketEdit = () => {
                                     <th scope="col-2">Food Name</th>
                                     <th scope="col-4">Price (after discount)</th>
                                     <th scope="col-6">Discount Rate</th>
-                                    <th scope="col-6">Price (before discount)</th>
+                                    <th scope="col-6">Original Price </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -74,5 +74,4 @@ export const MarketEdit = () => {
         </center>
         </div>
     )
-    
 }

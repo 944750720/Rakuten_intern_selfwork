@@ -7,7 +7,7 @@ Notify users about discounts offered at supermarkets and support a bargain shopp
 To display Google Map, create a ".env" file in `./client/` directory.
 Then, write the following environment variable with your Google API KEY.
 ````
-OPENAI_API_KEY = ~YOUR API KEY~
+REACT_APP_POSIPAN_API_KEY = ~YOUR API KEY~
 ````
 
 ### Ready for Execution

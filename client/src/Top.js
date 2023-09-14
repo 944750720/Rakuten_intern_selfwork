@@ -86,8 +86,7 @@ export const Top = () => {
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                 />
-                <button onClick={handleSearch}>Search</button>
-            
+                <button onClick={handleSearch}>Search</button>            
             
             <h1>Nearby shops</h1>
             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d207446.3291583094!2d139.57605851250543!3d35.66841030665742!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188b857628235d%3A0xcdd8aef709a2b520!2sTokyo!5e0!3m2!1sen!2sjp!4v1694676640160!5m2!1sen!2sjp" 
@@ -95,9 +94,8 @@ export const Top = () => {
                 width="600" 
                 height="450" 
                 style={{border:"0"}}  
-                allowfullscreen="" 
                 loading="lazy" 
-                referrerpolicy="no-referrer-when-downgrade">
+                referrerPolicy="no-referrer-when-downgrade">
             </iframe>
 
                 {loading ?
