@@ -1,31 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 
-import { getSuperMarket, searchSuperMarket } from '../api/getList'
+import { searchSuperMarket } from '../api/getList'
 
 export const Search = () => {
   const { query } = useParams();
   const [searchResults, setSearchResults] = useState([]);
   console.log("Query:", query);
-  const initialState = {
-    id: '',
-    name: '',
-    supermarket_id: '',   
-}
-
-const[superlist, setDaily] = useState(initialState);
-// const[loading, setLoading] = useState(true);
-
-useEffect(() => {
-    getSuperMarket()
-    .then(d => {
-        setDaily(d)
-        // setLoading(false)
-    })
-    .catch(e => {
-        throw new Error(e)
-    })
-},[])
 
 useEffect(() => {
     const fetchData = async () => {
