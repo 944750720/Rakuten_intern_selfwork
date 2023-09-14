@@ -25,48 +25,64 @@ class ListAllStore(APIView):
     def get(self, request):
         try:
             stores = Supermarket.objects.all()
-            res_list = [
-                {
-                    'id': s.id,
-                    'name': s.name,
-                }
-                for s in stores
-            ]
-            return Response(res_list)
+
+            store_list = []
+            # transform search result to json
+            for store in stores:
+                discount_flag = False  # 初期値を False に設定
+
+                # スーパーマーケットのすべての食品を取得
+                foods = store.food_set.all()
+
+                # 食品が存在する場合、discount_flag を True に設定
+                # 食品が存在する場合、最大割引率を計算
+                if foods:
+                    discount_flag = True
+                    max_rate = max(food.discount_rate for food in foods)
+
+                store_list.append(
+                    {
+                        'Supermarket_ID': store.supermarket_id,
+                        'Supermarket_Name': store.name,
+                        'Discount_Flag': discount_flag,
+                        'Maximum_Discount_Rate': max_rate,
+                    }
+                )
+                
+            return Response(store_list)
         except:
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-class Detail_Shop(APIView):
-    def get(self, request, pk):
-        try:
-            try:
-                stores = Supermarket.objects.get(id=pk)
-            except:
-                error_msg = "そんなidのスーパーマーケットはないよ！"
-                return Response(error_msg, status=status.HTTP_404_NOT_FOUND)
+# class Detail_Shop(APIView):
+#     def get(self, request, pk):
+#         try:
+#             try:
+#                 stores = Supermarket.objects.get(id=pk)
+#             except:
+#                 error_msg = "そんなidのスーパーマーケットはないよ！"
+#                 return Response(error_msg, status=status.HTTP_404_NOT_FOUND)
             
             
-            res_list = []
-            for s in stores.food_set.all():
-                original_price = s.price_after_discount / (100 - s.discount_rate) * 100
-                res_list.append(
-                    {
-                    'id': s.id,
-                    'food_name': s.food_name,
-                    'price_after_discount': s.price_after_discount,
-                    'discount_rate': s.discount_rate,
-                    'price_before_discount': original_price,
-                    'register_date': s.last_updated
-                    }
-                )
-            return Response(res_list)
-        except:
-            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+#             res_list = []
+#             for s in stores.food_set.all():
+#                 original_price = s.price_after_discount / (100 - s.discount_rate) * 100
+#                 res_list.append(
+#                     {
+#                     'id': s.id,
+#                     'food_name': s.food_name,
+#                     'price_after_discount': s.price_after_discount,
+#                     'discount_rate': s.discount_rate,
+#                     'price_before_discount': original_price,
+#                     'register_date': s.last_updated
+#                     }
+#                 )
+#             return Response(res_list)
+#         except:
+#             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         
 
 class FoodViewSet(viewsets.ModelViewSet):
     serializer_class = FoodSerializer
-
     def get_queryset(self):
         # URLからSupermarketのidを取得
         supermarket_id = self.kwargs['supermarket_id']
