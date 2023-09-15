@@ -1,6 +1,6 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import Search, ListAllStore, FoodViewSet, SupermarketViewSet
+from .views import Search, ListAllStore, FoodViewSet, SupermarketViewSet, SupermarketNameAPIView
 
 router = DefaultRouter()
 router.register(r'supermarkets', SupermarketViewSet)
@@ -15,6 +15,6 @@ urlpatterns = [
     # Output(json): {"Store_ID", "Store_Name", "Discount_flag", "Maximum_Discount_Rate"}
     path('search/', Search.as_view(), name='search'),
 
-    # 詳細ボタンを押したとき
-    # path('<int:pk>', Detail_Shop.as_view(), name='store_detail')
+    # 以下のようにスーパーマーケットのIDを受け取るURLを設定
+    path('supermarket-name/<int:supermarket_id>/', SupermarketNameAPIView.as_view(), name='supermarket-name'),
 ]
