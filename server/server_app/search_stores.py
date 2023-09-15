@@ -20,7 +20,7 @@ def get_stores(search_word):
 
         store_list.append(
             {
-                'Supermarket_ID': store.supermarket_id,
+                'Supermarket_ID': store.id,
                 'Supermarket_Name': store.name,
                 'Discount_Flag': discount_flag,
                 'Maximum_Discount_Rate': max_rate,

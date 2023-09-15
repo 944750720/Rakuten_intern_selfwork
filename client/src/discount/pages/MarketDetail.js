@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { getSuperDetail } from '../api/getList';
+import { getSuperDetail, getSupermarketName } from '../api/getList';
 
 
 export const MarketDetail = () => {
@@ -12,6 +12,9 @@ export const MarketDetail = () => {
         discount_rate: '',
         last_updated: '',
         supermarket: '',
+    };
+    const initialState_Name = {
+        name: '',
     };
 
     const [detail, setDetail] = useState(initialState)
@@ -34,11 +37,29 @@ export const MarketDetail = () => {
     const onClickButton = () => {
         navigate(-1); // 画面遷移を書く
     };
+
+    // 店名表示
+    const [supername, setDetail_super] = useState(initialState_Name)
+    const [loading_super, setLoading_super] = useState(true);
+    useEffect(()=>{
+        getSupermarketName(id)
+        .then(d => {
+            setDetail_super(d)
+            setLoading_super(false)
+        })
+        .catch(e => {
+            throw new Error(e)
+        })
+    },[id])
     
     return(
         <div>
             <center>
-                <h1>{id}</h1>
+                {loading_super ?
+                    <h1>Loading....</h1>
+                    :
+                    <h1>{Object.values(supername)}</h1>
+                }
                 <button class="btn_10" onClick={onClickButton}>Back</button>
                 <h1> </h1>
                 {loading ?
@@ -81,7 +102,9 @@ export const MarketDetail = () => {
                         </table>          
                 }
                 <h1> </h1>
-                <Link to={`/supermarket/${id}/edit`}><button class="btn_10">Edit</button></ Link>
+                <div>
+                    <Link to={`/supermarket/${id}/edit`}><button class="btn_10">Edit</button></ Link>
+                </div>
             </center>
         </div>
     )

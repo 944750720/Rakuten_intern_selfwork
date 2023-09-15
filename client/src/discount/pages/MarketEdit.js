@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { getSuperDetail, itemDelete, itemRegister } from '../api/getList';
+import { getSuperDetail, itemDelete, itemRegister, getSupermarketName } from '../api/getList';
 
 
 export const MarketEdit = () => {
@@ -12,6 +12,9 @@ export const MarketEdit = () => {
         discount_rate: '',
         last_updated: '',
         supermarket: '',
+    };
+    const initialState_Name = {
+        name: '',
     };
 
     const [detail, setDetail] = useState(initialState)
@@ -107,11 +110,29 @@ export const MarketEdit = () => {
     const [discount_rate, setText_discountrate] = useState("");
 
     const dateInstance = new Date();
+
+    // 店名表示
+    const [supername, setDetail_super] = useState(initialState_Name)
+    const [loading_super, setLoading_super] = useState(true);
+    useEffect(()=>{
+        getSupermarketName(id)
+        .then(d => {
+            setDetail_super(d)
+            setLoading_super(false)
+        })
+        .catch(e => {
+            throw new Error(e)
+        })
+    },[id])
     
     return(
         <div>
             <center>
-                <h1>{id}</h1>
+                {loading_super ?
+                    <h1>Loading....</h1>
+                    :
+                    <h1>{Object.values(supername)}</h1>
+                }
                 <Link to={`/supermarket/${id}/foods`}><button class="btn_10">Return to your store's top page</button></ Link>
                 <h1> </h1>
                 {loading ?
@@ -136,7 +157,7 @@ export const MarketEdit = () => {
                                         <td><center>¥{value.price_after_discount}</center></td>
                                         <td><center>{value.discount_rate} %</center></td>
                                         <td><center>¥{value.original_price}</center></td>
-                                        <td><center><button onClick={() => onClickDelete(value.supermarket, value.id)}>Delete</button></center></td>
+                                        <td><center><button onClick={() => onClickDelete(value.supermarket, value.id)} class="btn_11">Delete</button></center></td>
                                     </tr>
                                 )}
                                 <tr>
@@ -175,7 +196,11 @@ export const MarketEdit = () => {
                                         (Autofill)
                                     </td>
                                     <td>
-                                    <center><button type="submit" onClick={() => onClickRegister(food_name, current_price, discount_rate, dateInstance, id)}>Input</button></center>
+                                        <center>
+                                            <button type="submit" onClick={() => onClickRegister(food_name, current_price, discount_rate, dateInstance, id)} class="btn_11">
+                                                Input
+                                            </button>
+                                        </center>
                                     </td>
                                 </tr>
                             </tbody>

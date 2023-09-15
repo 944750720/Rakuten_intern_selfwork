@@ -42,13 +42,12 @@ export const Search = () => {
         <div>
             <center>
                 <h1>Search Query: {query}</h1>
-                <h1> </h1>
-                <Link to={`/`}><button class="btn_10">Back</button></ Link>
-                <h1> </h1>
-                <h2>Search Results:</h2>
-                <Wrapper apiKey={process.env.REACT_APP_POSIPAN_API_KEY}>
-                    <Map />
-                </Wrapper>
+                <h2>Search Results</h2>
+                <div class="map">
+                    <Wrapper apiKey={process.env.REACT_APP_POSIPAN_API_KEY}>
+                        <Map />
+                    </Wrapper>
+                </div>
                 <h1> </h1>
                 <table id="list" className="table" border="1" width="300">
                     <thead className="table-dark">
@@ -73,6 +72,9 @@ export const Search = () => {
                     </tbody>
                 </table>
             </center>
+            <h1> </h1>
+                <Link to={`/`}><button class="btn_10">Back</button></ Link>
+            <h1> </h1>
         </div>
     );
     };

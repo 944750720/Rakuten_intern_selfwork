@@ -7,7 +7,7 @@ const toJson = async (res) => {
     }
 }
 
-//日報一覧を取得
+//全スーパーマーケットを取得
 export const getSuperMarket = async () =>{
     const res = await fetch('http://127.0.0.1:8000/api/list/', {
         method: 'GET',
@@ -15,7 +15,7 @@ export const getSuperMarket = async () =>{
     return await toJson(res);
 }
 
-//1日の詳細を取得
+//全スーパーマーケットを取得
 export const getSuperDetail = async (id) => {
     const res = await fetch(`http://localhost:8000/api/supermarkets/${id}/foods`, {
         method : 'GET',
@@ -68,4 +68,12 @@ export const itemRegister = async (Food, NowPrice, DR, date, superid) => {
          }),
     })
     return await res;
+}
+
+//該当スーパー名を取得
+export const getSupermarketName = async (id) => {
+    const res = await fetch(`http://127.0.0.1:8000/api/supermarket-name/${id}/`, {
+        method : 'GET',
+    })
+    return await toJson(res);
 }

@@ -61,21 +61,40 @@ export const Top = () => {
         })
     }, [])
 
+    const [nameError, setNameError] = useState('')
+
+    const handleBlur = (e) => {
+        const searchTerm = e.target.value
+        if (!searchTerm) {
+            setNameError('required')
+        } else {
+            setNameError()
+        }
+    }
+
     return (
         <div>
             <center>
                 <h1>Nearby shops</h1>
-                <Wrapper apiKey={process.env.REACT_APP_POSIPAN_API_KEY}>
-                    <Map />
-                </Wrapper>
+                <div class="map">
+                    <Wrapper apiKey={process.env.REACT_APP_POSIPAN_API_KEY}>
+                        <Map />
+                    </Wrapper>
+                </div>
                 <h2>Refine Search</h2>
                 <input 
                     type="text" 
                     placeholder="SuperMarket Search." 
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
+                    value={searchTerm} 
+                    onChange={(e) => 
+                        setSearchTerm(e.target.value)
+                    }
+                    class="c-form-text"
+                    onBlur={handleBlur}
                 />
-                <button class="btn_10" onClick={handleSearch}>Search</button>
+                {nameError && <p>{nameError}</p>}
+                <h1> </h1>
+                <button class="btn_10" onClick={handleSearch} disabled={nameError}>Search</button>
                 <h1> </h1>
                 <h1> </h1>
                 <h1> </h1>
@@ -95,7 +114,7 @@ export const Top = () => {
                         <tbody>
                             {Object.values(superlist).map((value) =>
                                 <tr>
-                                    <td>{value.Discount_Flag ? "🚩" : " "}</td>
+                                    <td class="flag">{value.Discount_Flag ? "🚩" : " "}</td>
                                     <td>{value.Supermarket_Name}</td>
                                     <td>{value.Maximum_Discount_Rate} %</td>
                                     <td><Link to={`/supermarket/${value.Supermarket_ID}/foods`}><button class="btn_11">Detail</button></ Link></td>
