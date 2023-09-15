@@ -112,7 +112,7 @@ export const MarketEdit = () => {
         <div>
             <center>
                 <h1>{id}</h1>
-                <Link to={`/supermarket/${id}/foods`}><button>Return to your store's top page</button></ Link>
+                <Link to={`/supermarket/${id}/foods`}><button class="btn_10">Return to your store's top page</button></ Link>
                 <h1> </h1>
                 {loading ?
                     <h1>Loading....</h1>
@@ -132,7 +132,7 @@ export const MarketEdit = () => {
                                 {Object.values(detail).map((value) =>
                                     <tr>
                                         <td><center>{value.last_updated}</center></td>
-                                        <th scope="row"><center>{value.food_name}</center></th>
+                                        <td><center>{value.food_name}</center></td>
                                         <td><center>¥{value.price_after_discount}</center></td>
                                         <td><center>{value.discount_rate} %</center></td>
                                         <td><center>¥{value.original_price}</center></td>

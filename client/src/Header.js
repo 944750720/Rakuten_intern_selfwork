@@ -6,10 +6,13 @@ import "./Header.css"
 export const Header = () => {
     return(
         <div id="header">
-             <Link to='/'>Top</Link>
-            <center>
+            <div id="header-link">
+                <Link to='/'>Top</Link>
+            </div>
+            <div id="title-container">
                 <h1>Super Discount Bros.</h1>
-            </center>
+            </div>
+            <div id="header-space"></div>
         </div>
     )
 }

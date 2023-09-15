@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { Wrapper } from "@googlemaps/react-wrapper";
 
 import { searchSuperMarket } from '../api/getList'
 
@@ -20,14 +21,35 @@ export const Search = () => {
         fetchData();
     }, [query]);  // queryが変更された場合に再実行
 
+    const Map = () => {
+        const ref = React.useRef(null);
+        const [map, setMap] = React.useState(null);
+    
+        React.useEffect(() => {
+            if (ref.current && !map) {
+                setMap(new window.google.maps.Map(ref.current, {
+                    center: { lat: 26.5013, lng: 128.0593 },
+                    zoom: 9,
+                }));
+            }
+        }, [ref, map]);
+        
+    
+        return <div ref={ref} style={{ height: '500px', width: '100%' }} />;
+    };
+
     return (
         <div>
             <center>
                 <h1>Search Query: {query}</h1>
                 <h1> </h1>
-                <Link to={`/`}><button>Back</button></ Link>
+                <Link to={`/`}><button class="btn_10">Back</button></ Link>
                 <h1> </h1>
                 <h2>Search Results:</h2>
+                <Wrapper apiKey={process.env.REACT_APP_POSIPAN_API_KEY}>
+                    <Map />
+                </Wrapper>
+                <h1> </h1>
                 <table id="list" className="table" border="1" width="300">
                     <thead className="table-dark">
                         <tr>
@@ -45,7 +67,7 @@ export const Search = () => {
                             <td>{result.Discount_Flag ? "🚩" : " "}</td>
                             <td>{result.Supermarket_Name}</td>
                             <td>{result.Maximum_Discount_Rate} %</td>
-                            <td><Link to={`/supermarket/${result.Supermarket_ID}/foods`}><button>Detail</button></ Link></td>
+                            <td><Link to={`/supermarket/${result.Supermarket_ID}/foods`}><button class="btn_11">Detail</button></ Link></td>
                         </tr>
                         ))}
                     </tbody>

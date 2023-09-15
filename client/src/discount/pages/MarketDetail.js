@@ -3,7 +3,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import { getSuperDetail } from '../api/getList';
 
 
-export const MarketDetail = (props) => {
+export const MarketDetail = () => {
     const initialState = {
         id: '',
         original_price: '',
@@ -39,29 +39,33 @@ export const MarketDetail = (props) => {
         <div>
             <center>
                 <h1>{id}</h1>
-                <button onClick={onClickButton}>Back</button>
+                <button class="btn_10" onClick={onClickButton}>Back</button>
                 <h1> </h1>
                 {loading ?
                     <h1>Loading....</h1>
                     :
-                    <table className="table" border="1" width="300">
+                    <table id="list" className="table" border="1" width="300">
                             <thead className="table-dark">
                                 <tr>
                                     <th scope="col-2">Last Update</th>
                                     <th scope="col-2">Food Name</th>
-                                    <th scope="col-4">Price (after discount)</th>
+                                    <th scope="col-4">Price</th>
                                     <th scope="col-6">Discount Rate</th>
-                                    <th scope="col-6">Original Price</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {Object.values(detail).map((value) =>
                                     <tr>
                                         <td><center>{value.last_updated}</center></td>
-                                        <th scope="row"><center>{value.food_name}</center></th>
-                                        <td><center>¥{value.price_after_discount}</center></td>
+                                        <td><center>{value.food_name}</center></td>
+                                        <td>
+                                            <center>
+                                                <div id="table_line-through">¥{value.original_price}</div> 
+                                                ↓
+                                                <div id="table_nowprice">¥{value.price_after_discount}</div> 
+                                            </center>
+                                        </td>
                                         <td><center>{value.discount_rate} %</center></td>
-                                        <td><center>¥{value.original_price}</center></td>
                                     </tr>
                                 )}
                     
@@ -77,7 +81,7 @@ export const MarketDetail = (props) => {
                         </table>          
                 }
                 <h1> </h1>
-                <Link to={`/supermarket/${id}/edit`}><button>Edit</button></ Link>
+                <Link to={`/supermarket/${id}/edit`}><button class="btn_10">Edit</button></ Link>
             </center>
         </div>
     )
