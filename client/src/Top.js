@@ -106,7 +106,7 @@ export const Top = () => {
                             <tr>
                                 <th scope="col-2">Discount Flag</th>
                                 <th scope="col-2">Supermarket Name</th>
-                                <th scope="col-4">Discount Flag</th>
+                                <th scope="col-4">Maximum Discount Rate</th>
                                 <th scope="col-6"></th>
                             </tr>
                         </thead>
@@ -132,6 +132,8 @@ export const Top = () => {
                     </table>
                 }
             </center>
+            <h1> </h1>
+            <h1> </h1>
         </div>
     )
 }

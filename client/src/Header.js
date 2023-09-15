@@ -6,8 +6,8 @@ import "./Header.css"
 export const Header = () => {
     return(
         <div id="header">
+             <Link to='/'>Top</Link>
             <center>
-                <Link to='/'>Top</Link>
                 <h1>Super Discount Bros.</h1>
             </center>
         </div>

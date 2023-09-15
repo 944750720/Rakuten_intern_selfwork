@@ -42,4 +42,30 @@ export const searchSuperMarket = async (query) => {
     });
   
     return await toJson(res);
-  };
+}
+
+// 特定の店の商品をDeleteする
+export const itemDelete = async (superid, foodid) => {
+    const res = await fetch(`http://127.0.0.1:8000/api/supermarkets/${superid}/foods/${foodid}/`, {
+        method : 'DELETE',
+    })
+    return await res;
+}
+
+// 特定の店の商品を新たに登録する
+export const itemRegister = async (Food, NowPrice, DR, date, superid) => {
+    const res = await fetch(`http://127.0.0.1:8000/api/supermarkets/${superid}/foods/`, {
+        method : 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+          },
+        body: JSON.stringify({ 
+            "last_updated": date,
+            "food_name": Food,
+            "price_after_discount": NowPrice,
+            "discount_rate": DR,
+            "supermarket": superid
+         }),
+    })
+    return await res;
+}

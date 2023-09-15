@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { getSuperDetail } from '../api/getList';
 
 
-export const MarketDetail = () => {
+export const MarketDetail = (props) => {
     const initialState = {
         id: '',
         original_price: '',
@@ -28,13 +28,19 @@ export const MarketDetail = () => {
             throw new Error(e)
         })
     },[id])
+
+    const navigate = useNavigate(); // historyを用意する
+
+    const onClickButton = () => {
+        navigate(-1); // 画面遷移を書く
+    };
     
     return(
-        
         <div>
             <center>
                 <h1>{id}</h1>
-                {/* <td><Link to={`/supermarket/${id}/edit`}><button>Detail</button></ Link></td> */}
+                <button onClick={onClickButton}>Back</button>
+                <h1> </h1>
                 {loading ?
                     <h1>Loading....</h1>
                     :
@@ -56,7 +62,6 @@ export const MarketDetail = () => {
                                         <td><center>¥{value.price_after_discount}</center></td>
                                         <td><center>{value.discount_rate} %</center></td>
                                         <td><center>¥{value.original_price}</center></td>
-                                        
                                     </tr>
                                 )}
                     
@@ -69,10 +74,11 @@ export const MarketDetail = () => {
                                     </tr>
                                 )} */}
                             </tbody>
-                        </table>
-                        
+                        </table>          
                 }
-        </center>
+                <h1> </h1>
+                <Link to={`/supermarket/${id}/edit`}><button>Edit</button></ Link>
+            </center>
         </div>
     )
     
