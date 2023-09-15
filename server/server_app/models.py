@@ -12,7 +12,6 @@ class Food(models.Model):
 
 class Supermarket(models.Model):
     name = models.CharField(max_length=255)
-    supermarket_id = models.CharField(max_length=255)
     # address = models.CharField(max_length=255)
 
     def __str__(self):

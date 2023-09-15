@@ -88,7 +88,7 @@ class FoodViewSet(viewsets.ModelViewSet):
         # URLからSupermarketのidを取得
         supermarket_id = self.kwargs['supermarket_id']
         # 特定のSupermarketに関連付けられたFoodのクエリセットを返す
-        return Food.objects.filter(supermarket_id=supermarket_id)
+        return Food.objects.filter(supermarket__id=supermarket_id)
     
     @action(detail=False, methods=['DELETE'])
     def delete_all(self, request, supermarket_id=None):
@@ -99,3 +99,13 @@ class FoodViewSet(viewsets.ModelViewSet):
 class SupermarketViewSet(viewsets.ModelViewSet):
     queryset = Supermarket.objects.all()
     serializer_class = SupermarketSerializer
+
+
+class SupermarketNameAPIView(APIView):
+    def get(self, request, supermarket_id):
+        try:
+            supermarket = Supermarket.objects.get(pk=supermarket_id)
+            serializer = SupermarketSerializer(supermarket)
+            return Response({'name': serializer.data['name']}, status=status.HTTP_200_OK)
+        except Supermarket.DoesNotExist:
+            return Response({'error': 'Supermarket not found'}, status=status.HTTP_404_NOT_FOUND)
